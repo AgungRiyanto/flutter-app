@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'home.dart';
+import 'app.dart';
 
 class Login extends StatefulWidget {
   static String nav = 'login';
@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
             }).then((http.Response response){
               final statusCode = response.statusCode;
               if (statusCode == 200) {
-                Navigator.of(context).pushNamed(TabbedAppBarSample.nav);
+                Navigator.of(context).pushNamed(App.nav);
               } else {
                 Fluttertoast.showToast(
                   msg: "Error",
