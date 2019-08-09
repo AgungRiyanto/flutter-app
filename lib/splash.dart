@@ -22,17 +22,23 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width100 = width/100;
+    final height100 = height/100;
+
     return Container(
-      color: Colors.white,
+      color: Color.fromRGBO(46, 50, 132, 1),
+      padding: EdgeInsets.only(left: 15.0, right: 15.0),
       child: Center(
-        child: Image.asset('assets/flutterlogo.png'),
+        child: Image.asset('assets/logo-mb.png', width: width100 * 70.0,),
       )
     );
   }
 
   Future<Timer> navigate() async {
     return new Timer(Duration(seconds: 2), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+      // Na
     });
   }
 }
