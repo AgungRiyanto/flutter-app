@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'login.dart';
 
 class Splash extends StatefulWidget {
   static String nav = 'splash';

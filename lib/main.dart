@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'splash.dart';
 // import 'login.dart';
-import 'app.dart';
+import 'package:my_app/app/index.dart';
 import 'package:my_app/auth/login.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
       title: 'Welcome to Flutter',
       home: Login(),
       routes: <String, WidgetBuilder> {
-        Splash.nav: (context) => Splash(),
-        Login.nav: (context) => Login(),
-        App.nav: (context) => App()
+        'splash': (context) => Splash(),
+        'login': (context) => Login(),
+        'app': (context) => App()
       },
     );
   }
