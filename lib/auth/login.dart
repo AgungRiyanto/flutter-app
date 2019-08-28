@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/helpers/variables.dart' as variable;
 
 class Login extends StatefulWidget {
   static String nav = 'login';
@@ -79,7 +80,7 @@ class _LoginState extends State<Login> {
               // width: 100  * width100,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Color.fromRGBO(255, 2, 102, 1)
+                color: variable.primary
               ),
               child: Icon(Icons.arrow_forward, color: Colors.white,),
             ),
