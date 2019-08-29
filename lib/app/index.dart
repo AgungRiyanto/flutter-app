@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/helpers/variables.dart' as variable;
 
 import 'package:my_app/app/home/index.dart';
+import 'package:my_app/app/profile/main.dart';
 
 class App extends StatefulWidget {
   static String nav = 'app';
@@ -80,7 +81,7 @@ class _AppState extends State<App> {
     final List<Widget>_body = [
       Home(),
       Home(),
-      Home()
+      Profile()
     ];
 
     return Scaffold(
