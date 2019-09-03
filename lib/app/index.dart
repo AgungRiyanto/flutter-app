@@ -21,15 +21,7 @@ class _AppState extends State<App> {
       return PreferredSize(
         preferredSize: Size(null, 100),
         child: Container(
-          // decoration: BoxDecoration(
-          //   boxShadow: [BoxShadow(
-          //     color: Colors.black12,
-          //     spreadRadius: 5,
-          //     blurRadius: 2
-          //   )]
-          // ),
           width: MediaQuery.of(context).size.width,
-          // height: 100,
           child: ClipRRect(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(0),
