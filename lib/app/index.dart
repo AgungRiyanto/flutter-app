@@ -17,62 +17,66 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
     Widget appBar() {
       return PreferredSize(
         preferredSize: Size(null, 100),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(0),
-                bottomRight: Radius.circular(0)
-            ),
-            child: Container(
-              padding: EdgeInsets.fromLTRB(15, 25, 15, 20),
-              color: Colors.white,
+        child: Padding(
+           padding: new EdgeInsets.only(top: statusBarHeight),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(0)
+              ),
               child: Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 4,
-                      child: Text('Application', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: EdgeInsets.only(left: 7),
-                        child: Icon(Icons.add_comment, color: variable.primary),
+                padding: EdgeInsets.all(15),
+                color: Colors.white,
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Text('Application', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: EdgeInsets.only(left: 7),
-                        child: Icon(Icons.search, color: variable.primary),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        splashColor: Theme.of(context).splashColor,
-                        highlightColor: Theme.of(context).highlightColor,
-                        onTap: () {
-                        },
+                      Expanded(
+                        flex: 1,
                         child: Container(
                           margin: EdgeInsets.only(left: 7),
-                          child: Icon(Icons.add, color: variable.primary),
+                          child: Icon(Icons.add_comment, color: variable.primary),
                         ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: EdgeInsets.only(left: 7),
+                          child: Icon(Icons.search, color: variable.primary),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: InkWell(
+                          splashColor: Theme.of(context).splashColor,
+                          highlightColor: Theme.of(context).highlightColor,
+                          onTap: () {
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 7),
+                            child: Icon(Icons.add, color: variable.primary),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        )
       );
     }
 
