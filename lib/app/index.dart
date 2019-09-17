@@ -45,9 +45,16 @@ class _AppState extends State<App> {
                       ),
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          margin: EdgeInsets.only(left: 7),
-                          child: Icon(Icons.add_comment, color: variable.primary),
+                        child: InkWell(
+                          splashColor: Theme.of(context).splashColor,
+                          highlightColor: Theme.of(context).highlightColor,
+                          onTap: () {
+                            Navigator.pushNamed(context, 'chat-list');
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 7),
+                            child: Icon(Icons.add_comment, color: variable.primary),
+                          ),
                         ),
                       ),
                       Expanded(
@@ -63,6 +70,7 @@ class _AppState extends State<App> {
                           splashColor: Theme.of(context).splashColor,
                           highlightColor: Theme.of(context).highlightColor,
                           onTap: () {
+                            Navigator.pushNamed(context, 'chat-room');
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: 7),

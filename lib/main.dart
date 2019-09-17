@@ -3,6 +3,8 @@ import 'splash.dart';
 // import 'login.dart';
 import 'package:my_app/app/index.dart';
 import 'package:my_app/auth/login.dart';
+import 'package:my_app/app/chats/room.dart';
+import 'package:my_app/app/chats/chat-list.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -13,7 +15,9 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder> {
         'splash': (context) => Splash(),
         'login': (context) => Login(),
-        'app': (context) => App()
+        'app': (context) => App(),
+        'chat-room': (context) => ChatRoom(),
+        'chat-list': (context) => ChatList()
       },
     );
   }
