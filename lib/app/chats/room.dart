@@ -53,6 +53,21 @@ class _ChatRoomState extends State<ChatRoom> {
       text: 'hello2',
       time: '10:00',
       msg_type: 'send'
+    ),
+     Message(
+      text: 'hello2',
+      time: '10:00',
+      msg_type: 'send'
+    ),
+     Message(
+      text: 'hello2',
+      time: '10:00',
+      msg_type: 'send'
+    ),
+     Message(
+      text: 'hello2',
+      time: '10:00',
+      msg_type: 'send'
     )
   ];
 
@@ -108,10 +123,10 @@ class _ChatRoomState extends State<ChatRoom> {
     }
 
     Widget content() {
-      return Container(
-          // margin: EdgeInsets.only(top: 10),
-          padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-          height: 500,
+      return Expanded(
+        flex: 10,
+        child: Container(
+          padding: EdgeInsets.only(right: 10, left: 10, top: 10),
           child: ListView.builder(
             itemBuilder: (context, i) {
               return Container(
@@ -139,7 +154,57 @@ class _ChatRoomState extends State<ChatRoom> {
             },
             itemCount: messages.length,
           ),
-        );
+        )
+      );
+    }
+
+    Widget inputMsg() {
+      return Container(
+        padding: EdgeInsets.all(5),
+        decoration: new BoxDecoration(
+          color: Colors.white.withOpacity(0.7),
+        ),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 8,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: variable.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.all(Radius.circular(100))
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 9,
+                      child: TextField(
+                        // controller: emailController,
+                        style: new TextStyle(color: Colors.grey),
+                        decoration: new InputDecoration(
+                          hintText: 'Send message',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          contentPadding: EdgeInsets.all(10),
+                          border: InputBorder.none
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Icon(Icons.insert_emoticon, color: Colors.grey,),
+                    )
+                  ],
+                )
+              )
+            ),
+            Expanded(
+              flex: 1,
+              child: InkWell(
+                child: Icon(Icons.add, color: Colors.grey,),
+              ),
+            ),
+          ],
+        )
+      );
     }
 
     return MaterialApp(
@@ -152,7 +217,7 @@ class _ChatRoomState extends State<ChatRoom> {
               children: <Widget>[
                 appBar(),
                 content(),
-                
+                inputMsg()
               ],
             ),
           ),
