@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/helpers/variables.dart' as variable;
-import 'package:my_app/models.dart';
+import 'package:my_app/models/message.dart';
 
 class ChatRoom extends StatefulWidget {
   String nav = 'chat-room';
