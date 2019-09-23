@@ -3,6 +3,7 @@ import 'package:my_app/helpers/variables.dart' as variable;
 
 import 'package:my_app/app/home/index.dart';
 import 'package:my_app/app/profile/main.dart';
+import 'add_dialog.dart';
 
 class App extends StatefulWidget {
   static String nav = 'app';
@@ -70,7 +71,10 @@ class _AppState extends State<App> {
                           splashColor: Theme.of(context).splashColor,
                           highlightColor: Theme.of(context).highlightColor,
                           onTap: () {
-                            Navigator.pushNamed(context, 'chat-room');
+                            showDialog(
+                              context: context,
+                              builder: (_) => AddDialog(),
+                            );
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: 7),

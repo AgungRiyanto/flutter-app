@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:convert';
 
 class Profile extends StatefulWidget {
-  State<StatefulWidget> createState() {
-    return _ProfileState();
-  }
+  @override
+	_ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  String name = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDataUser();
+  }
+
+  void getDataUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name =  prefs.getString('name');
+    });
+  }
 
   Widget cardUserDetail() {
     return Container(
@@ -31,7 +48,7 @@ class _ProfileState extends State<Profile> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Agung Reeyanto', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+                  Text(this.name,style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
                   Text('agungreeyanto@gmail.com', style: TextStyle(color: Colors.white, fontSize: 12),),
                   Text('0877-3454-2196', style: TextStyle(color: Colors.white, fontSize: 12),)
                 ],

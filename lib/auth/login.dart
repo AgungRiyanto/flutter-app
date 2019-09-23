@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:my_app/helpers/variables.dart' as variable;
@@ -14,8 +15,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 	
-	final emailController = TextEditingController(text: 'johndoe@mail.com');
+	final emailController = TextEditingController(text: 'loketoceanna@mail.com');
 	final passwordController = TextEditingController(text: 'password');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
 	@override
 	void disposed() {
@@ -89,23 +96,25 @@ class _LoginState extends State<Login> {
 					Text('Forgot Password ?', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey, decoration: TextDecoration.underline),),
 					InkWell(
 						onTap: () async {
-							// var client = new http.Client();
-							// try {
-							// 	var uriResponse = await client.post('http://admin.eticketing.marlinbooking.co.id/',
-							// 			body: {
-							// 				'email': emailController.text,
-							// 				'password': passwordController.text
-							// 			});
-							// 			print(uriResponse.statusCode);	
-							// 			if (uriResponse.statusCode == 200) {
-							// 				Navigator.of(context).pushNamed('app');
-							// 			} else {
-							// 				print('error dong');
-							// 			}
-							// } finally {
-							// 	client.close();
-							// }
-              Navigator.of(context).pushNamed('app');
+              final JsonDecoder json = new JsonDecoder();
+							var client = new http.Client();
+							try {
+								var uriResponse = await client.post('http://admin.eticketing.marlinbooking.co.id/api/v1/auth/signin',
+										body: {
+											'email': emailController.text,
+											'password': passwordController.text
+										});
+                    var response = json.convert(uriResponse.body);
+										if (uriResponse.statusCode == 200) {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setString('name', response['payload']['name']);
+											Navigator.of(context).pushNamed('app');
+										} else {
+											print('error dong');
+										}
+							} finally {
+								client.close();
+							}
 						},
 						child: Container(
 							padding: EdgeInsets.all(15.0),
