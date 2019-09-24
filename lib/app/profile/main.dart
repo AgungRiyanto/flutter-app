@@ -48,7 +48,7 @@ class _ProfileState extends State<Profile> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(this.name,style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+                  Text(this.name, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
                   Text('agungreeyanto@gmail.com', style: TextStyle(color: Colors.white, fontSize: 12),),
                   Text('0877-3454-2196', style: TextStyle(color: Colors.white, fontSize: 12),)
                 ],
@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
               alignment: Alignment.center,
               child: CircleAvatar(
                 radius: 30.0,
-                backgroundImage: AssetImage('assets/johndoe.jpg'),
+                backgroundImage: AssetImage('assets/images/johndoe.jpg'),
               )
             ),
           )

@@ -41,7 +41,7 @@ class _LoginState extends State<Login> {
 		final title = Container(
 			margin: EdgeInsets.only(top: 10, bottom: 30),
 			alignment: Alignment.centerLeft,
-			child: Text('Sign In', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+			child: Text('Sign In', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 		);
 
 		final emailField = Container(
@@ -93,7 +93,7 @@ class _LoginState extends State<Login> {
 				crossAxisAlignment: CrossAxisAlignment.center,
 				mainAxisAlignment: MainAxisAlignment.spaceBetween,
 				children: <Widget>[
-					Text('Forgot Password ?', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey, decoration: TextDecoration.underline),),
+					Text('Forgot Password ?', style: TextStyle(color: Colors.grey),),
 					InkWell(
 						onTap: () async {
               final JsonDecoder json = new JsonDecoder();
@@ -135,6 +135,7 @@ class _LoginState extends State<Login> {
 			),
 		);
 		return MaterialApp(
+      theme: ThemeData(fontFamily: 'Be_Vietnam'),
 			home: Scaffold(
 				resizeToAvoidBottomInset: false,
 				backgroundColor: Color.fromRGBO(255, 2, 102, 1),

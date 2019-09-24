@@ -101,7 +101,7 @@ class _ChatRoomState extends State<ChatRoom> {
                   children: <Widget>[
                     CircleAvatar(
                       radius: 20.0,
-                      backgroundImage: AssetImage('assets/johndoe.jpg'),
+                      backgroundImage: AssetImage('assets/images/johndoe.jpg'),
                     ),
                     Text('John Doe', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey))
                   ],

@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Welcome to Flutter',
       home: Login(),
+      theme: ThemeData(fontFamily: 'Be_Vietnam'),
       routes: <String, WidgetBuilder> {
         'splash': (context) => Splash(),
         'login': (context) => Login(),

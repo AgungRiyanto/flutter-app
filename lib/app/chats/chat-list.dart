@@ -12,22 +12,22 @@ class  _ChatListState extends State<ChatList> {
     ChatListModel(
       sender: 'John Doe',
       last_msg: 'helo gaess',
-      avatar: 'assets/johndoe.jpg'
+      avatar: 'assets/images/johndoe.jpg'
     ),
     ChatListModel(
       sender: 'Jane doe',
       last_msg: 'helo gaess',
-      avatar: 'assets/johndoe.jpg'
+      avatar: 'assets/images/johndoe.jpg'
     ),
     ChatListModel(
       sender: 'Steve Jobs',
       last_msg: 'eehelo gaess',
-      avatar: 'assets/johndoe.jpg'
+      avatar: 'assets/images/johndoe.jpg'
     ),
     ChatListModel(
       sender: 'Linus',
       last_msg: 'helo gaess',
-      avatar: 'assets/johndoe.jpg'
+      avatar: 'assets/images/johndoe.jpg'
     )
   ];
 

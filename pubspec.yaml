@@ -41,10 +41,15 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - assets/ig.png
-    - assets/flutterlogo.png
-    - assets/logo-mb.png
-    - assets/johndoe.jpg
+    - assets/images/johndoe.jpg
+  fonts: 
+    - family: Nunito
+      fonts: 
+        - asset: assets/fonts/Nunito/Nunito-Regular.ttf
+        # - asset: assets/fonts/Nunito/Nunito-Bold.ttf
+    - family: Be_Vietnam
+      fonts: 
+        - asset: assets/fonts/Be_Vietnam/BeVietnam-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
