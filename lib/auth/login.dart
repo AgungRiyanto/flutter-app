@@ -4,10 +4,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:http/http.dart' as http;
+import 'package:my_app/firebase/authentication.dart';
 var baseUrl = 'http://admin.eticketing.marlinbooking.co.id/';
 
 class Login extends StatefulWidget {
-	static String nav = 'login';
+  Login({ this.auth, this.onSignedIn });
+  final BaseAuth auth;
+  final VoidCallback onSignedIn;
 
 	@override
 	_LoginState createState() => _LoginState();
@@ -96,25 +99,37 @@ class _LoginState extends State<Login> {
 					Text('Forgot Password ?', style: TextStyle(color: Colors.grey),),
 					InkWell(
 						onTap: () async {
-              final JsonDecoder json = new JsonDecoder();
-							var client = new http.Client();
-							try {
-								var uriResponse = await client.post('http://admin.eticketing.marlinbooking.co.id/api/v1/auth/signin',
-										body: {
-											'email': emailController.text,
-											'password': passwordController.text
-										});
-                    var response = json.convert(uriResponse.body);
-										if (uriResponse.statusCode == 200) {
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      prefs.setString('name', response['payload']['name']);
-											Navigator.of(context).pushNamed('app');
-										} else {
-											print('error dong');
-										}
-							} finally {
-								client.close();
-							}
+              String userId = "";
+              // userId =await widget.auth.signUp(email, password)
+               widget.auth.signUp(emailController.text, passwordController.text)
+               .then((userId) {
+                 print('succes ::::::'+ userId);
+                // setState(() {
+                // authStatus = userId == null ? AuthStatus.notSignedIn : AuthStatus.signedIn;
+                // });
+              }).catchError((onError){
+                print('');
+                // authStatus = AuthStatus.notSignedIn;
+              });
+              // final JsonDecoder json = new JsonDecoder();
+							// var client = new http.Client();
+							// try {
+							// 	var uriResponse = await client.post('http://admin.eticketing.marlinbooking.co.id/api/v1/auth/signin',
+							// 			body: {
+							// 				'email': emailController.text,
+							// 				'password': passwordController.text
+							// 			});
+              //       var response = json.convert(uriResponse.body);
+							// 			if (uriResponse.statusCode == 200) {
+              //         SharedPreferences prefs = await SharedPreferences.getInstance();
+              //         prefs.setString('name', response['payload']['name']);
+							// 				Navigator.of(context).pushNamed('app');
+							// 			} else {
+							// 				print('error dong');
+							// 			}
+							// } finally {
+							// 	client.close();
+							// }
 						},
 						child: Container(
 							padding: EdgeInsets.all(15.0),
