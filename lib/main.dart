@@ -6,6 +6,7 @@ import 'package:my_app/auth/login.dart';
 import 'package:my_app/app/chats/room.dart';
 import 'package:my_app/app/chats/chat-list.dart';
 import 'package:my_app/app/creates/project.dart';
+import 'package:my_app/app/home/project/main.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         'app': (context) => App(),
         'chat-room': (context) => ChatRoom(),
         'chat-list': (context) => ChatList(),
-        'create-project': (context) => CreateProject()
+        'create-project': (context) => CreateProject(),
+        'project': (context) => Project()
       },
     );
   }

@@ -4,7 +4,6 @@ import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:my_app/app/home/index.dart';
 import 'package:my_app/app/profile/main.dart';
 import 'add_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class App extends StatefulWidget {
   static String nav = 'app';
@@ -15,22 +14,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final databaseReference = Firestore.instance;
   int _currentIndex = 0;
-
-  void createRecord() async {
-    // await databaseReference.collection("project")
-    //     .document("1")
-    //     .setData({
-    //       'name': 'Mastering Flutter',
-    //     });
-
-    DocumentReference ref = await databaseReference.collection("project")
-        .add({
-          'name': 'Flutter in Action',
-        });
-    print(ref.documentID);
-  }
 
 
   @override
@@ -59,7 +43,7 @@ class _AppState extends State<App> {
                     children: [
                       Expanded(
                         flex: 4,
-                        child: Text('Application', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
+                        child: Text('Managing', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
                       ),
                       Expanded(
                         flex: 1,

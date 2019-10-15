@@ -55,144 +55,12 @@ class _HomeState extends State<Home> {
           itemBuilder: (context, index) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: new Image.network("https://image.tmdb.org/t/p/w370_and_h556_bestv2/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg",fit: BoxFit.cover),
+              child: Image.asset('assets/images/background.jpg', fit: BoxFit.cover,),
             );
           },
           itemCount: 5
         ),
       );
-  }
-
-  Widget teams() {
-    return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10),
-      child: Column(
-        children: <Widget>[
-          Container(
-            margin:EdgeInsets.only(bottom: 10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Marlin Booking HQ', style: TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Company wide annountcement and discussion', style: TextStyle(fontSize: 12),),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Marlin Booking HQ', style: TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Company wide annountcement and discussion', style: TextStyle(fontSize: 12),),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            margin:EdgeInsets.only(bottom: 10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Marlin Booking HQ', style: TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Company wide annountcement and discussion', style: TextStyle(fontSize: 12),),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0)
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Marlin Booking HQ', style: TextStyle(fontWeight: FontWeight.bold),),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text('Company wide annountcement and discussion', style: TextStyle(fontSize: 12),),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      )
-    );  
   }
 
   Widget basicMenu() {
@@ -207,6 +75,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: <Widget>[
                   Container(
+                    margin: EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                       color: variable.primary,
                       borderRadius: BorderRadius.all(Radius.circular(5))
@@ -226,9 +95,13 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.all(10),
             alignment: Alignment.centerLeft,
             child: InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, 'project');
+              },
               child: Column(
                 children: <Widget>[
                   Container(
+                    margin: EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                       color: variable.primary,
                       borderRadius: BorderRadius.all(Radius.circular(5))
@@ -251,6 +124,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: <Widget>[
                   Container(
+                    margin: EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                       color: variable.primary,
                       borderRadius: BorderRadius.all(Radius.circular(5))
@@ -273,6 +147,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: <Widget>[
                   Container(
+                    margin: EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                       color: variable.primary,
                       borderRadius: BorderRadius.all(Radius.circular(5))
