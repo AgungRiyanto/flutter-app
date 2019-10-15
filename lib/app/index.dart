@@ -4,6 +4,7 @@ import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:my_app/app/home/index.dart';
 import 'package:my_app/app/profile/main.dart';
 import 'add_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class App extends StatefulWidget {
   static String nav = 'app';
@@ -14,7 +15,23 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final databaseReference = Firestore.instance;
   int _currentIndex = 0;
+
+  void createRecord() async {
+    // await databaseReference.collection("project")
+    //     .document("1")
+    //     .setData({
+    //       'name': 'Mastering Flutter',
+    //     });
+
+    DocumentReference ref = await databaseReference.collection("project")
+        .add({
+          'name': 'Flutter in Action',
+        });
+    print(ref.documentID);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +88,7 @@ class _AppState extends State<App> {
                           splashColor: Theme.of(context).splashColor,
                           highlightColor: Theme.of(context).highlightColor,
                           onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AddDialog(),
-                            );
+                            Navigator.pushNamed(context, 'create-project');
                           },
                           child: Container(
                             margin: EdgeInsets.only(left: 7),
