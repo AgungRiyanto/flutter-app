@@ -30,6 +30,7 @@ dependencies:
   quick_actions: ^0.3.2+2
   shared_preferences:  ^0.4.3
   firebase_auth: ^0.14.0+5
+  cloud_firestore: ^0.12.9+5
 
 dev_dependencies:
   flutter_test:

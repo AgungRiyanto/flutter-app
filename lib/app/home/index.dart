@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async';
 
 
 class Home extends StatefulWidget {
@@ -10,6 +12,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  StreamSubscription<QuerySnapshot>subscription;
+
+  List<DocumentSnapshot>snapshot;
+
+  CollectionReference collectionReference =Firestore.instance.collection('project');
+
+  @override
+  void initState() {
+    subscription = collectionReference.snapshots().listen((dataSnapshot){
+      setState(() {
+        snapshot = dataSnapshot.documents;
+      });
+    });
+    super.initState();
+  }
 
   Widget slider() {
     return Container(
@@ -186,7 +203,18 @@ class _HomeState extends State<Home> {
       child: Column(
         children: <Widget>[
           slider(),
-          teams()
+          // teams()
+          Container(
+            height: 300,
+            child: ListView.builder(
+              itemBuilder: (context, i) {
+                return Container(
+                  child: Text(snapshot[i]['name']),
+                );
+              },
+            itemCount: snapshot.length,
+          ),
+          )
         ],
       )
     );
