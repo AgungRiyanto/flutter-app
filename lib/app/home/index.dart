@@ -195,26 +195,116 @@ class _HomeState extends State<Home> {
     );  
   }
 
+  Widget basicMenu() {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          flex: 3,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: variable.primary,
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
+                    padding: EdgeInsets.all(15),
+                    child: Icon(Icons.perm_contact_calendar, color: Colors.white,),
+                  ),
+                  Text('Teams', style:TextStyle(color: Colors.grey))
+                ],
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: variable.primary,
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
+                    padding: EdgeInsets.all(15),
+                    child: Icon(Icons.developer_board, color: Colors.white,),
+                  ),
+                  Text('Project', style:TextStyle(color: Colors.grey))
+                ],
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: variable.primary,
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
+                    padding: EdgeInsets.all(15),
+                    child: Icon(Icons.timeline, color: Colors.white,),
+                  ),
+                  Text('Timeline', style:TextStyle(color: Colors.grey))
+                ],
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: variable.primary,
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
+                    padding: EdgeInsets.all(15),
+                    child: Icon(Icons.note, color: Colors.white,),
+                  ),
+                  Text('Notes', style:TextStyle(color: Colors.grey))
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey.withOpacity(0.2),
+      color: Colors.white,
       padding: EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
           slider(),
-          // teams()
           Container(
-            height: 300,
-            child: ListView.builder(
-              itemBuilder: (context, i) {
-                return Container(
-                  child: Text(snapshot[i]['name']),
-                );
-              },
-            itemCount: snapshot.length,
+            margin: EdgeInsets.only(top: 10, bottom: 10),
+            alignment: Alignment.centerLeft,
+            child: Text('Application', style:TextStyle(fontWeight:FontWeight.bold)),
           ),
-          )
+          basicMenu()
+          // teams()
         ],
       )
     );
