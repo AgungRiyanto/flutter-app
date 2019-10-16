@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/helpers/variables.dart' as variable;
-
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:my_app/app/home/index.dart';
 import 'package:my_app/app/profile/main.dart';
 import 'add_dialog.dart';
@@ -99,24 +99,21 @@ class _AppState extends State<App> {
     return Scaffold(
       appBar: appBar(),
       body: _body[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
+      bottomNavigationBar: BubbleBottomBar(
+        opacity: .2,
+        currentIndex: _currentIndex,
         onTap: onTabTapped,
-        currentIndex: _currentIndex, // this will be set when a new tab is tapped
-        items: [
-         BottomNavigationBarItem(
-           icon: new Icon(Icons.dashboard, color: _currentIndex == 0 ? variable.primary:Colors.grey,),
-          title: SizedBox.shrink(),
-         ),
-         BottomNavigationBarItem(
-           icon: new Icon(Icons.rss_feed, color: _currentIndex == 1 ? variable.primary:Colors.grey),
-          title: SizedBox.shrink(),
-         ),
-         BottomNavigationBarItem(
-           icon: Icon(Icons.person_outline, color: _currentIndex == 2 ? variable.primary:Colors.grey),
-          title: SizedBox.shrink()
-         )
-       ],
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        elevation: 8,
+        // fabLocation: BubbleBottomBarFabLocation.end, //new
+        hasNotch: true, //new
+        hasInk: true, //new, gives a cute ink effect
+        inkColor: Colors.black12, //optional, uses theme color if not specified
+        items: <BubbleBottomBarItem>[
+            BubbleBottomBarItem(backgroundColor: variable.primary, icon: Icon(Icons.dashboard, color: Colors.grey,), activeIcon: Icon(Icons.dashboard, color: variable.primary,), title: Text("Home")),
+            BubbleBottomBarItem(backgroundColor: variable.primary, icon: Icon(Icons.notifications_active, color: Colors.grey,), activeIcon: Icon(Icons.notifications_active, color: variable.primary,), title: Text("Notification")),
+            BubbleBottomBarItem(backgroundColor: variable.primary, icon: Icon(Icons.person_outline, color: Colors.grey,), activeIcon: Icon(Icons.person_outline, color: variable.primary,), title: Text("Profile")),
+        ],
       ),
     );
   }
