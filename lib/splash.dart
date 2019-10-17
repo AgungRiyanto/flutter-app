@@ -27,17 +27,17 @@ class _SplashState extends State<Splash> {
     final height100 = height/100;
 
     return Container(
-      color: Color.fromRGBO(46, 50, 132, 1),
+      color: Colors.white,
       padding: EdgeInsets.only(left: 15.0, right: 15.0),
       child: Center(
-        child: Image.asset('assets/logo-mb.png', width: width100 * 70.0,),
+        child: Image.asset('assets/images/logo.png', width: width100 * 100.0,),
       )
     );
   }
 
   Future<Timer> navigate() async {
-    return new Timer(Duration(seconds: 2), () {
-      // Na
+    return new Timer(Duration(seconds: 3), () {
+      Navigator.of(context).pushReplacementNamed('login');
     });
   }
 }

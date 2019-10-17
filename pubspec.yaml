@@ -48,6 +48,7 @@ flutter:
     - assets/images/background.jpg
     - assets/images/agung.jpg
     - assets/images/janedoe.jpg
+    - assets/images/logo.png
   fonts: 
     - family: Nunito
       fonts: 
