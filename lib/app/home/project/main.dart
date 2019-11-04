@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
+import 'package:my_app/models/ProjectModel.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Project extends StatefulWidget {
   _ProjectState createState() => _ProjectState();
@@ -9,20 +12,31 @@ class Project extends StatefulWidget {
 
 class  _ProjectState extends State<Project> {
   
-  StreamSubscription<QuerySnapshot>subscription;
+  // StreamSubscription<QuerySnapshot>subscription;
 
-  List<DocumentSnapshot>snapshot;
+  // List<DocumentSnapshot>snapshot;
 
-  CollectionReference collectionReference =Firestore.instance.collection('project');
+  // CollectionReference collectionReference =Firestore.instance.collection('project');
+  
 
   @override
   void initState() {
-    subscription = collectionReference.snapshots().listen((dataSnapshot){
-      setState(() {
-        snapshot = dataSnapshot.documents;
-      });
-    });
+    // subscription = collectionReference.snapshots().listen((dataSnapshot){
+    //   setState(() {
+    //     snapshot = dataSnapshot.documents;
+    //   });
+    // });
     super.initState();
+  }
+
+  Future<List<ProjectModel>> getProject() async {
+    final JsonDecoder json = new JsonDecoder();
+    http.Response response = await http.get(
+      'https://managing.000webhostapp.com/api/project');
+    var responseJson = json.convert(response.body);
+    return (responseJson['payload'] as List)
+        .map((p) => ProjectModel.fromJson(p))
+        .toList();
   }
 
   @override
@@ -73,96 +87,210 @@ class  _ProjectState extends State<Project> {
         flex: 10,
         child: Container(
           padding: EdgeInsets.all(10),
-          child: ListView.builder(
-            itemCount: snapshot.length,
-            itemBuilder: (context, i) {
-              final item = snapshot[i];
-              return InkWell(
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 15),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: variable.primary,
-                    borderRadius: BorderRadius.all(Radius.circular(5))
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        // alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(snapshot[i]['name'], style:TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 18)),
-                            Icon(Icons.more_vert, color: Colors.white)
-                          ],
-                        ),
-                      ),
-                      Text(snapshot[i]['desc'], style: TextStyle(color: Colors.white),),
-                      Container(
-                        padding: EdgeInsets.only(top: 15,),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(right: 5),
-                              width: 35,
-                              height: 35,
-                              decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage('assets/images/johndoe.jpg')
-                                  )
-                              )
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 5),
-                              width: 35,
-                              height: 35,
-                              decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage('assets/images/agung.jpg')
-                                  )
-                              )
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 5),
-                              width: 35,
-                              height: 35,
-                              decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage('assets/images/janedoe.jpg')
-                                  )
-                              )
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 5),
-                              width: 35,
-                              height: 35,
-                              alignment: Alignment.center,
-                              decoration: new BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white
-                                  // image: new DecorationImage(
-                                  //     fit: BoxFit.cover,
-                                  //     image: AssetImage('assets/images/janedoe.jpg')
-                                  // )
+          child: new ListView(
+            children: <Widget>[
+              new FutureBuilder<List<ProjectModel>>(
+                future: getProject(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<ProjectModel> projects = snapshot.data;
+                    return new Column(
+                      children: projects.map((p) => new Column(
+                        children: <Widget>[
+                          new InkWell(
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: 15),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: variable.primary,
+                                borderRadius: BorderRadius.all(Radius.circular(5))
                               ),
-                              child: Text('+21', style:TextStyle(color:variable.primary)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    // alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(p.name, style:TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 18)),
+                                        Icon(Icons.more_vert, color: Colors.white)
+                                      ],
+                                    ),
+                                  ),
+                                  Text(p.description, style: TextStyle(color: Colors.white),),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 15,),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Container(
+                                          margin: EdgeInsets.only(right: 5),
+                                          width: 35,
+                                          height: 35,
+                                          decoration: new BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: new DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: AssetImage('assets/images/johndoe.jpg')
+                                              )
+                                          )
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(right: 5),
+                                          width: 35,
+                                          height: 35,
+                                          decoration: new BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: new DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: AssetImage('assets/images/agung.jpg')
+                                              )
+                                          )
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(right: 5),
+                                          width: 35,
+                                          height: 35,
+                                          decoration: new BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: new DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: AssetImage('assets/images/janedoe.jpg')
+                                              )
+                                          )
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(right: 5),
+                                          width: 35,
+                                          height: 35,
+                                          alignment: Alignment.center,
+                                          decoration: new BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white
+                                              // image: new DecorationImage(
+                                              //     fit: BoxFit.cover,
+                                              //     image: AssetImage('assets/images/janedoe.jpg')
+                                              // )
+                                          ),
+                                          child: Text('+21', style:TextStyle(color:variable.primary)),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-          )
+                          )
+                        ],
+                      )).toList()
+                    );
+                  }
+                  else if(snapshot.hasError)
+                    {
+                      return snapshot.error;
+                    }
+                    return new Center(
+                      child: new Column(
+                        children: <Widget>[
+                          new Padding(padding: new EdgeInsets.all(50.0)),
+                          new CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(variable.primary),),
+                        ],
+                      ),
+                    );
+                },
+              )
+            ],
+          ),
+          // child: ListView.builder(
+          //   itemCount: snapshot.length,
+          //   itemBuilder: (context, i) {
+          //     final item = snapshot[i];
+          //     return InkWell(
+          //       child: Container(
+          //         margin: EdgeInsets.only(bottom: 15),
+          //         padding: EdgeInsets.all(10),
+          //         decoration: BoxDecoration(
+          //           color: variable.primary,
+          //           borderRadius: BorderRadius.all(Radius.circular(5))
+          //         ),
+          //         child: Column(
+          //           crossAxisAlignment: CrossAxisAlignment.start,
+          //           children: <Widget>[
+          //             Container(
+          //               // alignment: Alignment.centerLeft,
+          //               child: Row(
+          //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //                 children: <Widget>[
+          //                   Text(snapshot[i]['name'], style:TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 18)),
+          //                   Icon(Icons.more_vert, color: Colors.white)
+          //                 ],
+          //               ),
+          //             ),
+          //             Text(snapshot[i]['desc'], style: TextStyle(color: Colors.white),),
+          //             Container(
+          //               padding: EdgeInsets.only(top: 15,),
+          //               child: Row(
+          //                 children: <Widget>[
+          //                   Container(
+          //                     margin: EdgeInsets.only(right: 5),
+          //                     width: 35,
+          //                     height: 35,
+          //                     decoration: new BoxDecoration(
+          //                         shape: BoxShape.circle,
+          //                         image: new DecorationImage(
+          //                             fit: BoxFit.cover,
+          //                             image: AssetImage('assets/images/johndoe.jpg')
+          //                         )
+          //                     )
+          //                   ),
+          //                   Container(
+          //                     margin: EdgeInsets.only(right: 5),
+          //                     width: 35,
+          //                     height: 35,
+          //                     decoration: new BoxDecoration(
+          //                         shape: BoxShape.circle,
+          //                         image: new DecorationImage(
+          //                             fit: BoxFit.cover,
+          //                             image: AssetImage('assets/images/agung.jpg')
+          //                         )
+          //                     )
+          //                   ),
+          //                   Container(
+          //                     margin: EdgeInsets.only(right: 5),
+          //                     width: 35,
+          //                     height: 35,
+          //                     decoration: new BoxDecoration(
+          //                         shape: BoxShape.circle,
+          //                         image: new DecorationImage(
+          //                             fit: BoxFit.cover,
+          //                             image: AssetImage('assets/images/janedoe.jpg')
+          //                         )
+          //                     )
+          //                   ),
+          //                   Container(
+          //                     margin: EdgeInsets.only(right: 5),
+          //                     width: 35,
+          //                     height: 35,
+          //                     alignment: Alignment.center,
+          //                     decoration: new BoxDecoration(
+          //                         shape: BoxShape.circle,
+          //                         color: Colors.white
+          //                         // image: new DecorationImage(
+          //                         //     fit: BoxFit.cover,
+          //                         //     image: AssetImage('assets/images/janedoe.jpg')
+          //                         // )
+          //                     ),
+          //                     child: Text('+21', style:TextStyle(color:variable.primary)),
+          //                   ),
+          //                 ],
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // )
         ),
       );
     } 

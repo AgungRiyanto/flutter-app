@@ -5,7 +5,8 @@ import 'dart:convert';
 import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:http/http.dart' as http;
 import 'package:my_app/firebase/authentication.dart';
-var baseUrl = 'http://admin.eticketing.marlinbooking.co.id/';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+var baseUrl = 'https://managing.000webhostapp.com/api';
 
 class Login extends StatefulWidget {
   Login({ this.auth, this.onSignedIn });
@@ -18,7 +19,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 	
-	final emailController = TextEditingController(text: 'loketoceanna@mail.com');
+	final emailController = TextEditingController(text: 'agungriyantor@gmail.com');
 	final passwordController = TextEditingController(text: 'password');
 
   @override
@@ -33,6 +34,22 @@ class _LoginState extends State<Login> {
 		passwordController.dispose();
 		super.dispose();
 	}
+
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: SpinKitThreeBounce(color: variable.primary)
+        );
+      },
+    );
+    new Future.delayed(new Duration(seconds: 3), () {
+      // Navigator.pop(context);
+      Navigator.of(context).pushNamed('app');
+    });
+  }
   
 	@override
 	Widget build(BuildContext context) {
@@ -102,7 +119,7 @@ class _LoginState extends State<Login> {
               final JsonDecoder json = new JsonDecoder();
 							var client = new http.Client();
 							try {
-								var uriResponse = await client.post('http://admin.eticketing.marlinbooking.co.id/api/v1/auth/signin',
+								var uriResponse = await client.post(baseUrl + '/login',
 										body: {
 											'email': emailController.text,
 											'password': passwordController.text
@@ -110,7 +127,7 @@ class _LoginState extends State<Login> {
                     var response = json.convert(uriResponse.body);
 										if (uriResponse.statusCode == 200) {
                       SharedPreferences prefs = await SharedPreferences.getInstance();
-                      prefs.setString('name', response['payload']['name']);
+                      prefs.setString('name', response['token']);
 											Navigator.of(context).pushNamed('app');
 										} else {
 											print('error dong');
@@ -137,6 +154,7 @@ class _LoginState extends State<Login> {
 				],
 			),
 		);
+
 		return MaterialApp(
       theme: ThemeData(fontFamily: 'Be_Vietnam'),
 			home: Scaffold(
