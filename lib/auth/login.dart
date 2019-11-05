@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:my_app/helpers/variables.dart' as variable;
 import 'package:http/http.dart' as http;
 import 'package:my_app/firebase/authentication.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:bmprogresshud/bmprogresshud.dart';
 var baseUrl = 'https://managing.000webhostapp.com/api';
 
 class Login extends StatefulWidget {
@@ -35,20 +35,8 @@ class _LoginState extends State<Login> {
 		super.dispose();
 	}
 
-  void _onLoading() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: SpinKitThreeBounce(color: variable.primary)
-        );
-      },
-    );
-    new Future.delayed(new Duration(seconds: 3), () {
-      // Navigator.pop(context);
-      Navigator.of(context).pushNamed('app');
-    });
+  _showLoadingHud(BuildContext context) async {
+    ProgressHud.of(context).show(ProgressHudType.loading, "loading...");
   }
   
 	@override
@@ -109,50 +97,57 @@ class _LoginState extends State<Login> {
 		);
 
 		final loginButton = Container(
-			child: Row(
-				crossAxisAlignment: CrossAxisAlignment.center,
-				mainAxisAlignment: MainAxisAlignment.spaceBetween,
-				children: <Widget>[
-					Text('Forgot Password ?', style: TextStyle(color: Colors.grey),),
-					InkWell(
-						onTap: () async {
-              final JsonDecoder json = new JsonDecoder();
-							var client = new http.Client();
-							try {
-								var uriResponse = await client.post(baseUrl + '/login',
-										body: {
-											'email': emailController.text,
-											'password': passwordController.text
-										});
-                    var response = json.convert(uriResponse.body);
-										if (uriResponse.statusCode == 200) {
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      prefs.setString('name', response['token']);
-											Navigator.of(context).pushNamed('app');
-										} else {
-											print('error dong');
-										}
-							} finally {
-								client.close();
-							}
-						},
-						child: Container(
-							padding: EdgeInsets.all(15.0),
-							margin: EdgeInsets.only(top: 10, bottom: 10),
-							// width: 100  * width100,
-							decoration: BoxDecoration(
-								borderRadius: BorderRadius.circular(100),
-								color: variable.primary
-							),
-							child: Row(
-                children: <Widget>[
-                  Icon(Icons.arrow_forward, color: Colors.white,),
-                ],
-              )
-						),
-					)
-				],
-			),
+			child: Builder(
+        builder: (builderContext) {
+          return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('Forgot Password ?', style: TextStyle(color: Colors.grey),),
+                InkWell(
+                  onTap: () async {
+                    await _showLoadingHud(builderContext);
+                    final JsonDecoder json = new JsonDecoder();
+                    var client = new http.Client();
+                    try {
+                    	var uriResponse = await client.post(baseUrl + '/login',
+                    			body: {
+                    				'email': emailController.text,
+                    				'password': passwordController.text
+                    			});
+                          var response = json.convert(uriResponse.body);
+                    			if (uriResponse.statusCode == 200) {
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            prefs.setString('name', response['token']);
+                            await Future.delayed(const Duration(seconds: 2));
+                            ProgressHud.of(builderContext).dismiss();
+                    				Navigator.of(context).pushNamed('app');
+                    			} else {
+                    				print('error dong');
+                    			}
+                    } finally {
+                    	client.close();
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(15.0),
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    // width: 100  * width100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: variable.primary
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.arrow_forward, color: Colors.white,),
+                      ],
+                    )
+                  ),
+                )
+              ],
+            );
+        },
+      )
 		);
 
 		return MaterialApp(
@@ -160,38 +155,40 @@ class _LoginState extends State<Login> {
 			home: Scaffold(
 				resizeToAvoidBottomInset: false,
 				backgroundColor: Color.fromRGBO(255, 2, 102, 1),
-				body: SafeArea(
-				child: Column(
-					// mainAxisAlignment: MainAxisAlignment.,
-					children: <Widget>[
-            Expanded(
-              flex: 4,
-              child: Container(
-                color: Color.fromRGBO(255, 2, 102, 1),
-              ),
-            ),
-            Expanded(
-              flex: 6,
-              child: Container(
-                width: 100 * width100,
-                padding: EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+				body: ProgressHud(
+          child: SafeArea(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.,
+              children: <Widget>[
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    color: Color.fromRGBO(255, 2, 102, 1),
+                  ),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    title,
-                    emailField,
-                    passwordField,
-                    loginButton
-                  ],
-              ),
-						),
-					)
-					],
-				),
-				)
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    width: 100 * width100,
+                    padding: EdgeInsets.all(15.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        title,
+                        emailField,
+                        passwordField,
+                        loginButton
+                      ],
+                  ),
+                ),
+              )
+              ],
+            ),
+          ),
+        )
 			),
 		);
 	}

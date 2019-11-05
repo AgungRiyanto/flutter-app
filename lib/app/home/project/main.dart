@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:my_app/models/ProjectModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shimmer/shimmer.dart';
 
 class Project extends StatefulWidget {
   _ProjectState createState() => _ProjectState();
@@ -184,9 +185,7 @@ class  _ProjectState extends State<Project> {
                         ],
                       )).toList()
                     );
-                  }
-                  else if(snapshot.hasError)
-                    {
+                  } else if (snapshot.hasError) {
                       return snapshot.error;
                     }
                     return new Center(
@@ -201,96 +200,6 @@ class  _ProjectState extends State<Project> {
               )
             ],
           ),
-          // child: ListView.builder(
-          //   itemCount: snapshot.length,
-          //   itemBuilder: (context, i) {
-          //     final item = snapshot[i];
-          //     return InkWell(
-          //       child: Container(
-          //         margin: EdgeInsets.only(bottom: 15),
-          //         padding: EdgeInsets.all(10),
-          //         decoration: BoxDecoration(
-          //           color: variable.primary,
-          //           borderRadius: BorderRadius.all(Radius.circular(5))
-          //         ),
-          //         child: Column(
-          //           crossAxisAlignment: CrossAxisAlignment.start,
-          //           children: <Widget>[
-          //             Container(
-          //               // alignment: Alignment.centerLeft,
-          //               child: Row(
-          //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //                 children: <Widget>[
-          //                   Text(snapshot[i]['name'], style:TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 18)),
-          //                   Icon(Icons.more_vert, color: Colors.white)
-          //                 ],
-          //               ),
-          //             ),
-          //             Text(snapshot[i]['desc'], style: TextStyle(color: Colors.white),),
-          //             Container(
-          //               padding: EdgeInsets.only(top: 15,),
-          //               child: Row(
-          //                 children: <Widget>[
-          //                   Container(
-          //                     margin: EdgeInsets.only(right: 5),
-          //                     width: 35,
-          //                     height: 35,
-          //                     decoration: new BoxDecoration(
-          //                         shape: BoxShape.circle,
-          //                         image: new DecorationImage(
-          //                             fit: BoxFit.cover,
-          //                             image: AssetImage('assets/images/johndoe.jpg')
-          //                         )
-          //                     )
-          //                   ),
-          //                   Container(
-          //                     margin: EdgeInsets.only(right: 5),
-          //                     width: 35,
-          //                     height: 35,
-          //                     decoration: new BoxDecoration(
-          //                         shape: BoxShape.circle,
-          //                         image: new DecorationImage(
-          //                             fit: BoxFit.cover,
-          //                             image: AssetImage('assets/images/agung.jpg')
-          //                         )
-          //                     )
-          //                   ),
-          //                   Container(
-          //                     margin: EdgeInsets.only(right: 5),
-          //                     width: 35,
-          //                     height: 35,
-          //                     decoration: new BoxDecoration(
-          //                         shape: BoxShape.circle,
-          //                         image: new DecorationImage(
-          //                             fit: BoxFit.cover,
-          //                             image: AssetImage('assets/images/janedoe.jpg')
-          //                         )
-          //                     )
-          //                   ),
-          //                   Container(
-          //                     margin: EdgeInsets.only(right: 5),
-          //                     width: 35,
-          //                     height: 35,
-          //                     alignment: Alignment.center,
-          //                     decoration: new BoxDecoration(
-          //                         shape: BoxShape.circle,
-          //                         color: Colors.white
-          //                         // image: new DecorationImage(
-          //                         //     fit: BoxFit.cover,
-          //                         //     image: AssetImage('assets/images/janedoe.jpg')
-          //                         // )
-          //                     ),
-          //                     child: Text('+21', style:TextStyle(color:variable.primary)),
-          //                   ),
-          //                 ],
-          //               ),
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // )
         ),
       );
     } 
